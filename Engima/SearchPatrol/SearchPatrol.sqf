@@ -1,18 +1,9 @@
-/* Engima.SearchPatrol - SearchPatrol.sqf.
- * Summary: Makes a group of infantry units search a marker area and engage detected enemies. The infantry group will move at "normal" speed to a search area
- * and then patrol that area until enemies are detected. When enemies are detected, group will hunt and destroy. If the search area (the marker) is moved to 
- * another place (by scripting), they will transport themselves move in "LIMITED" (walking) speed to the new area.
- * Example call:
- *   [group marine1, "marker"] execVM "Engima\SearchPatrol\SearchPatrol.sqf";
- * Or in init file of search group's leader:
- *   _nil = [group this, "marker"] execVM "Engima\SearchPatrol\SearchPatrol.sqf";
- * Arguments:
- *   _group:            Group of infantry units that will perform the search.
- *   _searchAreaMarker: Name of marker to search.
- *   [_firstPos]:       The first position (preferrably inside the area) to move to. A random position within the area is picked if this argument is left empty.
- *   [_debug]:          true if debugmessages and areas will be shown for player. Default false.
- * Dependencies: Engima.CommonLib 3.0.
- */
+/*--------------------------------------------
+ * - ENGIMA'S SEARCH PATROL (VERSION 1.21) -
+ *--------------------------------------------
+ * For the complete documentation, see file 
+ * Engima\SearchPatrol\Documentation.txt.
+ *--------------------------------------------*/
 
 params ["_group", "_searchAreaMarkerName", ["_firstPos", [0,0,0]], ["_debug", false]];
 

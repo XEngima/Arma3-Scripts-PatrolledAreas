@@ -14,12 +14,12 @@ _parameters = [
 	["SIDE", east],
 	["MIN_UNITS_PER_GROUP", 2],
 	["MAX_UNITS_PER_GROUP", 3],
-	["SPAWN_DISTANCE", 100],
+	["SPAWN_DISTANCE", 10000],
 	["AREA_PER_GROUP", 90000],
 	["GROUP_PROBABILITY_OF_PRESENCE", 1],
 	["MIN_SKILL", 0.4],
 	["MAX_SKILL", 0.6],
-	["ON_GROUP_CREATED", { hint "opfor"; }],
+	["ON_GROUP_CREATED", {}],
 	["DEBUG", true]
 ];
 
@@ -33,12 +33,12 @@ _parameters = [
 	["SIDE", west],
 	["MIN_UNITS_PER_GROUP", 2],
 	["MAX_UNITS_PER_GROUP", 3],
-	["SPAWN_DISTANCE", 100],
+	["SPAWN_DISTANCE", 10000],
 	["AREA_PER_GROUP", 90000],
 	["GROUP_PROBABILITY_OF_PRESENCE", 1],
 	["MIN_SKILL", 0.4],
 	["MAX_SKILL", 0.6],
-	["ON_GROUP_REMOVING", { hint "blufor removed"; }],
+	["ON_GROUP_REMOVING", {}],
 	["DEBUG", true]
 ];
 
