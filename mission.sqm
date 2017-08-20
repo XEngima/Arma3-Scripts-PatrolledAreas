@@ -1,0 +1,175 @@
+version=53;
+class EditorData
+{
+	moveGridStep=1;
+	angleGridStep=0.2617994;
+	scaleGridStep=1;
+	autoGroupingDist=10;
+	toggles=1;
+	class ItemIDProvider
+	{
+		nextID=7;
+	};
+	class MarkerIDProvider
+	{
+		nextID=4;
+	};
+	class Camera
+	{
+		pos[]={3926.3474,169.53627,4796.166};
+		dir[]={-0.95201302,-0.17364819,-0.25202686};
+		up[]={-0.1678656,0.98480779,-0.044439141};
+		aside[]={-0.25591481,0,0.96669936};
+	};
+};
+binarizationWanted=0;
+addons[]=
+{
+	"A3_Characters_F",
+	"A3_Ui_F"
+};
+class AddonsMetaData
+{
+	class List
+	{
+		items=2;
+		class Item0
+		{
+			className="A3_Characters_F";
+			name="Arma 3 Alpha - Characters and Clothing";
+			author="Bohemia Interactive";
+			url="https://www.arma3.com";
+		};
+		class Item1
+		{
+			className="A3_Ui_F";
+			name="Arma 3 - User Interface";
+			author="Bohemia Interactive";
+			url="https://www.arma3.com";
+		};
+	};
+};
+randomSeed=12904836;
+class ScenarioData
+{
+	author="daniel.eiserman";
+};
+class Mission
+{
+	class Intel
+	{
+		timeOfChanges=1800.0002;
+		startWeather=0.30000001;
+		startWind=0.1;
+		startWaves=0.1;
+		forecastWeather=0.30000001;
+		forecastWind=0.1;
+		forecastWaves=0.1;
+		forecastLightnings=0.1;
+		year=2035;
+		month=7;
+		day=6;
+		hour=12;
+		minute=0;
+		startFogDecay=0.014;
+		forecastFogDecay=0.014;
+	};
+	class Entities
+	{
+		items=6;
+		class Item0
+		{
+			dataType="Group";
+			side="West";
+			class Entities
+			{
+				items=1;
+				class Item0
+				{
+					dataType="Object";
+					class PositionInfo
+					{
+						position[]={3911.6306,164.87636,4791.6919};
+					};
+					side="West";
+					flags=7;
+					class Attributes
+					{
+						isPlayer=1;
+					};
+					id=1;
+					type="B_soldier_AR_F";
+					atlOffset=-0.00018310547;
+				};
+			};
+			class Attributes
+			{
+			};
+			id=0;
+			atlOffset=-0.00018310547;
+		};
+		class Item1
+		{
+			dataType="Marker";
+			position[]={1849.124,0,5538.541};
+			name="eng_airbaseMarker";
+			markerType="RECTANGLE";
+			type="rectangle";
+			a=300;
+			b=750;
+			angle=195.10899;
+			id=2;
+			atlOffset=-7.3597436;
+		};
+		class Item2
+		{
+			dataType="Marker";
+			position[]={2959.4478,0,6035.2119};
+			name="eng_agiaMarinaMarker";
+			markerType="ELLIPSE";
+			type="rectangle";
+			a=200;
+			b=200;
+			id=3;
+			atlOffset=-3.3499999;
+		};
+		class Item3
+		{
+			dataType="Marker";
+			position[]={3255.0012,0,5801.3359};
+			name="eng_militaryBaseMarker";
+			markerType="ELLIPSE";
+			type="rectangle";
+			a=75;
+			b=75;
+			id=4;
+			atlOffset=-5.1416073;
+		};
+		class Item4
+		{
+			dataType="Marker";
+			position[]={5008.0879,0,5912.1152};
+			name="eng_campRogainMarker";
+			markerType="RECTANGLE";
+			type="rectangle";
+			a=70;
+			b=70;
+			angle=203.75214;
+			id=5;
+			atlOffset=-208.48117;
+		};
+		class Item5
+		{
+			dataType="Marker";
+			position[]={4341.668,0,3814.834};
+			name="eng_airStationMikeMarker";
+			markerType="ELLIPSE";
+			type="ellipse";
+			a=180;
+			b=85;
+			angle=250.56998;
+			id=6;
+			atlOffset=-226.29381;
+		};
+	};
+};

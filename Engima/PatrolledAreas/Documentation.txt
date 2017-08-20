@@ -1,0 +1,38 @@
+****************************************************
+  Script: Engima.PatrolledAreas - Start Parameters
+****************************************************
+
+PATROL_AREAS (Array):
+Array of areas (marker names) that will be patrolled. Default value is ["PatrolledAreas_Marker1", "PatrolledAreas_Marker2"].
+Change and complete this array with your own markers.
+
+UNIT_CLASSES (Array):
+Array of possible units (class names) that will be spawned. If you want one unit class to be more probable than another, it some extra times in the array.
+Default value are some Arma 3 Opfor units.
+
+SIDE (Side):
+Side of spawned units.
+
+MIN_UNITS_PER_GROUP (Scalar):
+Minimum numbers of units in a group. Must be less than or equal to MAX_UNITS_PER_GROUP. Units per group will be a random number between MIN_UNITS_PER_GROUP and MAX_UNITS_PER_GROUP.
+
+MAX_UNITS_PER_GROUP (Scalar):
+Maximum numbers of units in a group. Must be greater than or equal to MIN_UNITS_PER_GROUP. Units per group will be a random number between MIN_UNITS_PER_GROUP and MAX_UNITS_PER_GROUP.
+
+SPAWN_DISTANCE (Scalar):
+If a player gets closer than this distance to an area marker, search patrol units will spawn.
+
+AREA_PER_GROUP (Scalar):
+Density of patrolling groups in an area (in unit "square meters per group").
+If area is less than this area then 1 group will be spawned.
+If area is greater than this area but less than double this area, then 1 group will spawn.
+If area is greater than double this area but less than triple this area, then 2 group will spawn, and so on.
+
+GROUP_PROBABILITY_OF_PRESENCE (Scalar):
+Each group's probability of presence. Must be a value between 0 and 1. 0 = group will never be present, 1 = group will always be present, 0.5 = each group has a 50% chance to be present.
+
+MIN_SKILL (Scalar):
+Minimum skill of each spawned unit. Must be greater or equal to 0 and less than or equal to MAX_SKILL. Skill will be a random number between MIN_SKILL and MAX_SKILL.
+
+DEBUG (Boolean):
+Whether debug info will be printed or not. true if you want debug information for groups (dots on the map), otherwise false.
