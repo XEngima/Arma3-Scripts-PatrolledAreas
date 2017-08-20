@@ -1,21 +1,18 @@
 PATAREAS_PopulateArea = {
 	params ["_area", ["_debug", false]];
 
-	private ["_markerName", "_areaPos", "_groups", "_areaSide", "_units", "_unit", "_skill", "_unitClassName", "_spawned", "_damage", "_unitObj"];
+	private ["_units", "_unit", "_skill", "_unitClassName", "_spawned", "_damage", "_unitObj"];
 	private ["_script", "_newGroup", "_unitPos", "_rank"];
 
-	if (!isServer) exitWith {};
-	
-	_markerName = _area select 0;
-	_areaPos = _area select 1;
-	_groups = _area select 2;
-	_areaSide = _area select 3;
+	private _markerName = _area select 0;
+	private _areaPos = _area select 1;
+	private _groups = _area select 2;
+	private _areaSide = _area select 3;
+	private _onGroupCreated = _area select 4;
 
 	if (_debug) then {
 	    player sideChat ("Populating area (" + _markerName + " No of groups: " + str count _groups + ")");
 	};
-	
-	if (count _groups == 0) exitWith {};
 	
 	{
 		_units = _x;
@@ -55,36 +52,38 @@ PATAREAS_PopulateArea = {
 			};
 		} foreach _units;
 	    
-		sleep 1;
-		
+	    // Call the ON_GROUP_CREATED callback.
+	    [_newGroup, _markerName, _groups] call _onGroupCreated;
+	    
+		sleep 0.5;
 	} foreach _groups;
 };
 
 PATAREAS_DepopulateArea = {
-	if (!isServer) exitWith {};
-	
-	private ["_area", "_markerName", "_debug", "_units", "_unit", "_spawned", "_damage", "_unitObj", "_script"];
-	private ["_groups", "_unitPos", "_group", "_hasScript"];
+	private ["_area", "_debug", "_units", "_unit", "_spawned", "_damage", "_unitObj", "_script"];
+	private ["_unitPos", "_group", "_hasScript"];
 	private ["_deleteGroupDelayed"];
 	
 	_area = _this select 0;
 	if (count _this > 1) then {_debug = _this select 1;} else {_debug = false;};
 	
-	_markerName = _area select 0;
-	_groups = _area select 2;
+	private _markerName = _area select 0;
+	private _groups = _area select 2;
+	private _onGroupRemoving = _area select 5;
 	
 	if (_debug) then {
 	    player sideChat ("Depopulating area (" + _markerName + ")");
 	};
 	
 	_deleteGroupDelayed = {
-	    private ["_group"];
+		params ["_group", "_marker", "_groupsCount", "_onGroupRemoving"];
 	    
-	    _group = _this select 0;
+	    [_group, _marker, _groupsCount] call _onGroupRemoving;
 	    
 	    {
 	        deleteVehicle _x;
 	    } foreach units _group;
+	    
 	    deleteGroup _group;
 	};
 	
@@ -100,7 +99,7 @@ PATAREAS_DepopulateArea = {
 		_hasScript = _unit select 9;
 	
 		if (_hasScript) then {
-			terminate _script;
+			//terminate _script;
 		};
 	
 		{
@@ -135,7 +134,8 @@ PATAREAS_DepopulateArea = {
 	
 		} foreach _units;
 	
-	    [_group] spawn _deleteGroupDelayed;
+	    [_group, _markerName, count _groups, _onGroupRemoving] spawn _deleteGroupDelayed;
+	    
 	    sleep 0.5;
 	} foreach _groups;
 };
@@ -154,38 +154,33 @@ PATAREAS_GetRandomMarkerPos = {
 	_pos
 };
 
-// Script must not be called (script command "call") from an environment that does not support "sleep" and "waitUntil" (e.g. from an eventhandler).
-// In that case it must be spawned (script command "spawn").
-PATAREAS_PatrolledAreas = {
-	private ["_patrolAreas"];
-
-	_patrolAreas = [_this, "PATROL_AREAS"] call dre_fnc_GetParamValue;
-	
-	{
-		_x setMarkerAlpha 0;
-	} foreach _patrolAreas;
-	
+// Starts an instance of Engima's Patrolled Areas.
+PATAREAS_PatrolledAreas = {	
 	_this spawn {
-		private ["_patrolAreas", "_unitClasses", "_side", "_minUnitsPerGroup", "_maxUnitsPerGroup", "_spawnDistance", "_areaPerGroup", "_groupProbabilityOfPresence", "_minSkill", "_maxSkill", "_debug"];
 		private ["_instanceId", "_globalAreaArrayName", "_areaNo", "_areaName", "_unitObj", "_script"];
-	
-		if (!isServer) exitWith {};
+		
+		private _patrolAreas = [_this, "PATROL_AREAS"] call dre_fnc_GetParamValue;
+		private _unitClasses = [_this, "UNIT_CLASSES"] call dre_fnc_GetParamValue;
+		private _side = [_this, "SIDE", east] call dre_fnc_GetParamValue;
+		private _minUnitsPerGroup = [_this, "MIN_UNITS_PER_GROUP", 2] call dre_fnc_GetParamValue;
+		private _maxUnitsPerGroup = [_this, "MAX_UNITS_PER_GROUP", 5] call dre_fnc_GetParamValue;
+		private _spawnDistance = [_this, "SPAWN_DISTANCE", 1000] call dre_fnc_GetParamValue;
+		private _areaPerGroup = [_this, "AREA_PER_GROUP", 6000] call dre_fnc_GetParamValue;
+		private _groupProbabilityOfPresence = [_this, "GROUP_PROBABILITY_OF_PRESENCE", 1] call dre_fnc_GetParamValue;
+		private _minSkill = [_this, "MIN_SKILL", 0.4] call dre_fnc_GetParamValue;
+		private _maxSkill = [_this, "MAX_SKILL", 0.6] call dre_fnc_GetParamValue;
+		private _hideMarkers = [_this, "HIDE_MARKERS", false] call dre_fnc_GetParamValue;
+		private _onGroupCreated = [_this, "ON_GROUP_CREATED", {}] call dre_fnc_GetParamValue;
+		private _onGroupRemoving = [_this, "ON_GROUP_REMOVING", {}] call dre_fnc_GetParamValue;
+		private _debug = [_this, "DEBUG", false] call dre_fnc_GetParamValue;
+
+		if (_hideMarkers) then {
+			{
+				_x setMarkerAlpha 0;
+			} foreach _patrolAreas;
+		};
 		
 		sleep 1;
-		
-		_patrolAreas = [_this, "PATROL_AREAS"] call dre_fnc_GetParamValue;
-		_unitClasses = [_this, "UNIT_CLASSES"] call dre_fnc_GetParamValue;
-		_side = [_this, "SIDE", east] call dre_fnc_GetParamValue;
-		_minUnitsPerGroup = [_this, "MIN_UNITS_PER_GROUP", 2] call dre_fnc_GetParamValue;
-		_maxUnitsPerGroup = [_this, "MAX_UNITS_PER_GROUP", 5] call dre_fnc_GetParamValue;
-		_spawnDistance = [_this, "SPAWN_DISTANCE", 1000] call dre_fnc_GetParamValue;
-		_areaPerGroup = [_this, "AREA_PER_GROUP", 6000] call dre_fnc_GetParamValue;
-		_groupProbabilityOfPresence = [_this, "GROUP_PROBABILITY_OF_PRESENCE", 1] call dre_fnc_GetParamValue;
-		_minSkill = [_this, "MIN_SKILL", 0.4] call dre_fnc_GetParamValue;
-		_maxSkill = [_this, "MAX_SKILL", 0.6] call dre_fnc_GetParamValue;
-		_debug = [_this, "DEBUG", false] call dre_fnc_GetParamValue;
-	
-		sleep random 0.2;
 
 		// Assert if unit classes are not men
 		if (_debug) then {
@@ -277,7 +272,7 @@ PATAREAS_PatrolledAreas = {
 		        _groups set [count _groups, _units];
 		    };
 
-			_area = [_areaName, _areaPos, _groups, _side];
+			_area = [_areaName, _areaPos, _groups, _side, _onGroupCreated, _onGroupRemoving];
 			_area call compile (_globalAreaArrayName + " set [count " + _globalAreaArrayName + ", _this];");
 		
 			// Set area trigger

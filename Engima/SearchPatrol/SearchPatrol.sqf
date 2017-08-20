@@ -14,9 +14,9 @@
  * Dependencies: Engima.CommonLib 3.0.
  */
 
-if (!isServer) exitWith {};
-
 params ["_group", "_searchAreaMarkerName", ["_firstPos", [0,0,0]], ["_debug", false]];
+
+if (!local _group) exitWith {};
 
 private ["_position", "_side", "_state", "_moveCompleted", "_moveToFirstPos", "_exitScript", "_soldiers", "_garbageGroup", "_enemyPos", "_firstUnit", "_enemyUnit"];
 private ["_subAreaSearchTimeSec", "_subAreaSize", "_defaultSearchAreaMarkerName", "_subAreaCreatedTime", "_stationaryMaxTimeSec", "_currentPos", "_lastPos", "_lastMoveTime"];
@@ -97,7 +97,7 @@ scopeName "mainScope";
 // Main loop
 
 _exitScript = false;
-while {!_exitScript} do {
+while { !_exitScript && !isNull _group } do {
     scopeName "mainScope";
     
     if (_debug) then {
@@ -161,7 +161,7 @@ while {!_exitScript} do {
     _lastPos = + _currentPos;
     _lastMoveTime = diag_tickTime;
     
-    while {!_moveCompleted} do {
+    while { !_moveCompleted && !isNull _group } do {
         _soldiers = + units _group;
         {
             if ((!alive _x) || (!canStand _x)) then {
@@ -296,18 +296,21 @@ while {!_exitScript} do {
 			
 			sleep random 10;
 			
-			_units = units _group;
-			_unit = _units select floor random count _units;
-			_angle = random 360;
-			_y = 100 * cos _angle;
-			_x = 100 * sin _angle;
-			
-			_lookAtPos = [(getPos _unit select 0) + _y, (getPos _unit select 1) + _x, getPos _unit select 2];
-			_unit lookAt _lookAtPos;
-			
-			sleep 5;
-			
-			_unit lookAt objNull;
+			if (!isNull _group) then {
+				_units = units _group;
+				_unit = _units select floor random count _units;
+				_angle = random 360;
+				_y = 100 * cos _angle;
+				_x = 100 * sin _angle;
+				
+				_lookAtPos = [(getPos _unit select 0) + _y, (getPos _unit select 1) + _x, getPos _unit select 2];
+				_unit lookAt _lookAtPos;
+				
+				sleep 5;
+				if (!isNull _unit) then {
+					_unit lookAt objNull;
+				};
+			};
 		};
         
         sleep random 10;

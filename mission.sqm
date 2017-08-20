@@ -8,11 +8,11 @@ class EditorData
 	toggles=1;
 	class ItemIDProvider
 	{
-		nextID=7;
+		nextID=8;
 	};
 	class MarkerIDProvider
 	{
-		nextID=4;
+		nextID=5;
 	};
 	class Camera
 	{
@@ -76,7 +76,7 @@ class Mission
 	};
 	class Entities
 	{
-		items=6;
+		items=7;
 		class Item0
 		{
 			dataType="Group";
@@ -89,7 +89,7 @@ class Mission
 					dataType="Object";
 					class PositionInfo
 					{
-						position[]={3911.6306,164.87636,4791.6919};
+						position[]={3373.1443,230.86372,2881.7114};
 					};
 					side="West";
 					flags=7;
@@ -99,14 +99,14 @@ class Mission
 					};
 					id=1;
 					type="B_soldier_AR_F";
-					atlOffset=-0.00018310547;
+					atlOffset=3.0517578e-005;
 				};
 			};
 			class Attributes
 			{
 			};
 			id=0;
-			atlOffset=-0.00018310547;
+			atlOffset=3.0517578e-005;
 		};
 		class Item1
 		{
@@ -154,7 +154,7 @@ class Mission
 			type="rectangle";
 			a=70;
 			b=70;
-			angle=203.75214;
+			angle=203.75211;
 			id=5;
 			atlOffset=-208.48117;
 		};
@@ -167,9 +167,21 @@ class Mission
 			type="ellipse";
 			a=180;
 			b=85;
-			angle=250.56998;
+			angle=250.56996;
 			id=6;
 			atlOffset=-226.29381;
+		};
+		class Item6
+		{
+			dataType="Marker";
+			position[]={3347.094,0,2951.457};
+			name="eng_bluforMarker";
+			markerType="ELLIPSE";
+			type="ellipse";
+			a=150;
+			b=150;
+			id=7;
+			atlOffset=-230.27299;
 		};
 	};
 };

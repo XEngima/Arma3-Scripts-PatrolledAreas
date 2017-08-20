@@ -14,17 +14,33 @@ _parameters = [
 	["SIDE", east],
 	["MIN_UNITS_PER_GROUP", 2],
 	["MAX_UNITS_PER_GROUP", 3],
-	["SPAWN_DISTANCE", 10000],
+	["SPAWN_DISTANCE", 100],
 	["AREA_PER_GROUP", 90000],
 	["GROUP_PROBABILITY_OF_PRESENCE", 1],
 	["MIN_SKILL", 0.4],
 	["MAX_SKILL", 0.6],
+	["ON_GROUP_CREATED", { hint "opfor"; }],
 	["DEBUG", true]
 ];
 
-/******************************************************************************************/
-/*  Function Call - Do not edit below this line (unless you know what you are doing)      */
-/******************************************************************************************/
+// Start script
+_parameters call PATAREAS_PatrolledAreas;
+
+// Set custom parameters here
+_parameters = [
+	["PATROL_AREAS", ["eng_bluforMarker"]],
+	["UNIT_CLASSES", ["B_G_Soldier_F"]],
+	["SIDE", west],
+	["MIN_UNITS_PER_GROUP", 2],
+	["MAX_UNITS_PER_GROUP", 3],
+	["SPAWN_DISTANCE", 100],
+	["AREA_PER_GROUP", 90000],
+	["GROUP_PROBABILITY_OF_PRESENCE", 1],
+	["MIN_SKILL", 0.4],
+	["MAX_SKILL", 0.6],
+	["ON_GROUP_REMOVING", { hint "blufor removed"; }],
+	["DEBUG", true]
+];
 
 // Start script
 _parameters call PATAREAS_PatrolledAreas;
