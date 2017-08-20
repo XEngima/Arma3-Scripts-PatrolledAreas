@@ -220,12 +220,12 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={4341.668,0,3814.834};
-			name="eng_airStationMikeMarker";
+			name="PatrolledAreas_Marker2";
 			markerType="ELLIPSE";
 			type="ellipse";
 			a=180;
 			b=85;
-			angle=250.56996;
+			angle=250.56998;
 			id=6;
 			atlOffset=-226.29381;
 		};
@@ -233,7 +233,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={3347.094,0,2951.457};
-			name="eng_bluforMarker";
+			name="PatrolledAreas_Marker1";
 			markerType="ELLIPSE";
 			type="ellipse";
 			a=150;

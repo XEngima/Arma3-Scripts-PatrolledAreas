@@ -28,11 +28,11 @@
                 </SubNodes>
               </ProjectNodeViewModel>
               <ProjectNodeViewModel xsi:type="ProjectFileNodeViewModel" Name="ConfigAndStart.sqf" IsExpanded="false" FileName="Engima\PatrolledAreas\ConfigAndStart.sqf">
-                <IsSelected>false</IsSelected>
+                <IsSelected>true</IsSelected>
                 <SubNodes />
               </ProjectNodeViewModel>
               <ProjectNodeViewModel xsi:type="ProjectFileNodeViewModel" Name="Documentation.txt" IsExpanded="false" FileName="Engima\PatrolledAreas\Documentation.txt">
-                <IsSelected>true</IsSelected>
+                <IsSelected>false</IsSelected>
                 <SubNodes />
               </ProjectNodeViewModel>
               <ProjectNodeViewModel xsi:type="ProjectFileNodeViewModel" Name="HeadlessClient.sqf" IsExpanded="false" FileName="Engima\PatrolledAreas\HeadlessClient.sqf">
@@ -45,7 +45,7 @@
               </ProjectNodeViewModel>
             </SubNodes>
           </ProjectNodeViewModel>
-          <ProjectNodeViewModel xsi:type="ProjectFolderNodeViewModel" Name="SearchPatrol" IsExpanded="true" FileName="Engima\SearchPatrol">
+          <ProjectNodeViewModel xsi:type="ProjectFolderNodeViewModel" Name="SearchPatrol" IsExpanded="false" FileName="Engima\SearchPatrol">
             <IsSelected>false</IsSelected>
             <SubNodes>
               <ProjectNodeViewModel xsi:type="ProjectFileNodeViewModel" Name="SearchPatrol.sqf" IsExpanded="false" FileName="Engima\SearchPatrol\SearchPatrol.sqf">
